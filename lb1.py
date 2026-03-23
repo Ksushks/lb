@@ -2,13 +2,31 @@ import string
 from typing import Dict, Union
 
 def analyze_text(text: str) -> Dict[str, Union[int, float]]:
+    """
+    Анализирует текст и возвращает статистику.
+
+    Функция приводит текст к нижнему регистру, удаляет знаки препинания,
+    разбивает на слова и вычисляет:
+    - total_words: общее количество слов,
+    - unique_words: количество уникальных слов,
+    - avg_word_length: среднюю длину слова (округлённую до 2 знаков).
+
+    Аргументы:
+        text (str): Исходный текст для анализа.
+
+    Возвращает:
+        dict: Словарь со статистикой текста.
+    """
     # Приводим текст к нижнему регистру
     text_lower = text.lower()
+
     # Создаём таблицу замены: все знаки препинания заменяем на пробелы
     punct_to_space = str.maketrans({c: ' ' for c in string.punctuation})
     cleaned = text_lower.translate(punct_to_space)
+
     # Разбиваем строку на слова по пробелам (split удаляет пустые элементы)
     words = cleaned.split()
+
     # Обработка пустого текста
     if not words:
         return {
@@ -27,6 +45,7 @@ def analyze_text(text: str) -> Dict[str, Union[int, float]]:
         'unique_words': unique,
         'avg_word_length': avg_len_rounded
     }
+
 # Пример использования (для проверки)
 if __name__ == "__main__":
     raw_text = "Hello, world! Hello everyone. This is a test... A TEST!"
